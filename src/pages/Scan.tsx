@@ -9,18 +9,35 @@ export default function Scan() {
   const [error, setError] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Auto-focus the input
+  const focusInput = () => inputRef.current?.focus();
+
   useEffect(() => {
-    const focusInput = () => inputRef.current?.focus();
     focusInput();
     window.addEventListener('click', focusInput);
-    return () => window.removeEventListener('click', focusInput);
+    return () => {
+      window.removeEventListener('click', focusInput);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
+
+  // Re-focus after processing finishes
+  useEffect(() => {
+    if (!processing) {
+      focusInput();
+    }
+  }, [processing]);
 
   const handleScan = async (e: FormEvent) => {
     e.preventDefault();
     if (processing) return;
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
 
     const tag = rfid.trim();
     if (!tag) return;
@@ -93,9 +110,10 @@ export default function Scan() {
     } finally {
       setProcessing(false);
       // Auto-reset after 3 seconds
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setLastScan(null);
         setError(null);
+        timeoutRef.current = null;
       }, 3000);
     }
   };
