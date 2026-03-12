@@ -28,6 +28,7 @@ export default function Scan() {
     setRfid('');
     setProcessing(true);
     setError(null);
+    setLastScan(null);
 
     const playSound = (type: 'success' | 'error') => {
       try {
@@ -91,6 +92,11 @@ export default function Scan() {
       playSound('error');
     } finally {
       setProcessing(false);
+      // Auto-reset after 3 seconds
+      setTimeout(() => {
+        setLastScan(null);
+        setError(null);
+      }, 3000);
     }
   };
 
