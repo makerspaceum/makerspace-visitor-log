@@ -1,0 +1,5 @@
+{
+  "name": "Makerspace Visitor System",
+  "description": "A visitor management system for makerspaces to track non-member access during competitions and events using RFID.",
+  "requestFramePermissions": []
+}

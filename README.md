@@ -1,11 +1,33 @@
-<div align="center">
+# Makerspace Visitor Log
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+A robust visitor management system for makerspaces, featuring RFID scanning, event registration, and real-time access logs.
 
-  <h1>Built with AI Studio</h2>
+## Deployment on Vercel
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+This project is optimized for deployment on [Vercel](https://vercel.com).
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+### Steps to Deploy
 
-</div>
+1. **Export to GitHub**: Use the "Export to GitHub" feature in AI Studio.
+2. **Import to Vercel**:
+   - Log in to Vercel.
+   - Click **Add New > Project**.
+   - Import your GitHub repository.
+3. **Configure Framework**: Vercel should automatically detect **Vite**.
+4. **Deploy**: Click **Deploy**.
+
+### Handling 404 Errors on Refresh
+
+The `vercel.json` file is included in this repository to handle Single Page Application (SPA) routing. This ensures that refreshing the page on routes like `/scan` or `/visitors` works correctly.
+
+## Features
+
+- **RFID Scanning**: Real-time entry/exit logging.
+- **Event Management**: Create and track specific events.
+- **Visitor Database**: Manage registered users and their RFID tags.
+- **Access Logs**: Detailed history of all entries.
+- **Firebase Integration**: Direct cloud connection for real-time data.
+
+## Configuration
+
+Ensure your `src/firebase.ts` is updated with your Firebase project credentials.
